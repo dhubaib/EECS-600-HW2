@@ -15,10 +15,10 @@ public class sortTime {
     int nTrials = 5;
     
     // Set up sequence starting size
-    if (args.length == 1) {
+    if (args.length >= 1) {
       baseSize = Integer.parseInt(args[0]);
     } else {
-      baseSize = 1000000;
+      baseSize = 500000;
     }
     
     // Set up arrays to collect times

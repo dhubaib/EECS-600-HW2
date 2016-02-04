@@ -16,7 +16,7 @@ javac InsertionSort.java
 javac QuickSort.java
 javac sortTime.java
 
-java sortTime 1000 insert
+java sortTime 10000 insert
 
 python plot_png.py sortJavaInsert.csv
 
