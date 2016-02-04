@@ -1,5 +1,6 @@
 # EECS 600 - High Performance Computing 
 # Cal Al-Dhubaib, Assignment 2
+Raw assignment files located at:  [@dhubaib on Github](https://github.com/dhubaib/EECS-600-HW2/)
 
 ## Problem 1: Experiment with HPCC job submissions using sample file Timing2.java
 ```Java
@@ -7,10 +8,10 @@
 public class Timing2 {
   public static void main(String[] args) {
     long n; // Number of iterations
-    if (args.length == 1) {
+    if (args.length >= 1) {
       n = Long.parseLong(args[0]);
     } else {
-      n = 100000000L;
+      n = 1000000L;
     }
     long startTime, stopTime; // For recording start/stop times
     long x = 0;
@@ -248,7 +249,7 @@ insert_jv.slurm
 ```Sh
 #!/bin/bash
 #SBATCH --output=insert_jv.txt
-#SBATCH --mem=12g
+#SBATCH --mem=8g
 
 cp plot_png.py $PFSDIR/.
 cp sortTime.java $PFSDIR/.
@@ -272,7 +273,7 @@ cp -u *.csv $SLURM_SUBMIT_DIR/.
 cp -u *.png $SLURM_SUBMIT_DIR/.
 ```
 
-![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortJavaQuick.csv.png)
+![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortJavaInsert.csv.png)
 
 
 ### C) Repeat problem in a different language (Python)
@@ -335,7 +336,7 @@ insert_py.slurm
 ```Sh
 #!/bin/bash
 #SBATCH --output=insert_py.txt
-#SBATCH --mem=10g
+#SBATCH --mem=8g
 
 cp sort.py $PFSDIR/.
 cp plot_png.py $PFSDIR/.
@@ -345,14 +346,15 @@ cd $PFSDIR
 module load intel
 module load python
 
-python sort.py 5000 insert
+python sort.py 1000 insert
 
 python plot_png.py sortPythonInsert.csv
 
 cp -u *.csv $SLURM_SUBMIT_DIR/.
 cp -u *.png $SLURM_SUBMIT_DIR/.
 ```
-![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortPythonQuick.csv.png)
+![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortPythonInsert.csv.png)
+
 Consistent with problem 1, Python runs slower by a factor ~ 100
 
 ## Problem 3: Repeat problem 2 with  Quick Sort
@@ -363,29 +365,28 @@ See the code in 2.A above. Programmed to work for either insertion or quick sort
 quick_jv.slurm
 ```Sh
 #!/bin/bash
-#SBATCH --output=insert_jv.txt
-#SBATCH --mem=12g
+#SBATCH --output=quick_jv.txt
+#SBATCH --mem=8g
 
-cp plot_png.py $PFSDIR/.
 cp sortTime.java $PFSDIR/.
 cp QuickSort.java $PFSDIR/.
 cp InsertionSort.java $PFSDIR/.
+cp plot_png.py $PFSDIR/.
 
 cd $PFSDIR
 
 module load intel
 module load python
 
-javac InsertionSort.java
 javac QuickSort.java
 javac sortTime.java
 
-java sortTime 10000 insert
+java sortTime 10000000
 
-python plot_png.py sortJavaInsert.csv
+python plot_png.py sortJavaQuick.csv
 
-cp -u *.csv $SLURM_SUBMIT_DIR/.
 cp -u *.png $SLURM_SUBMIT_DIR/.
+cp -u *.csv $SLURM_SUBMIT_DIR/.
 ```
 
 ![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortJavaQuick.csv.png)
@@ -416,4 +417,5 @@ cp -u *.csv $SLURM_SUBMIT_DIR/.
 cp -u *.png $SLURM_SUBMIT_DIR/.
 ```
 ![alt text](https://raw.githubusercontent.com/dhubaib/EECS-600-HW2/master/plots/sortPythonQuick.csv.png)
+
 Consistent with problem 1, Python runs slower by a factor ~ 100
