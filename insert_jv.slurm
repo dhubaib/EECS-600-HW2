@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --output=insert_jv.txt
-#SBATCH --mem=12g
+#SBATCH --mem=8g
 
 cp plot_png.py $PFSDIR/.
 cp sortTime.java $PFSDIR/.
@@ -16,7 +16,7 @@ javac InsertionSort.java
 javac QuickSort.java
 javac sortTime.java
 
-java sortTime 10000 insert
+java sortTime 1000 insert
 
 python plot_png.py sortJavaInsert.csv
 
